@@ -1,0 +1,60 @@
+{
+  "name": "coc-flutter-bloc",
+  "version": "0.0.0-development",
+  "description": "CoC (NeoVim & Vim) support for the Bloc Library and provides tools for effectively creating Blocs and Cubits for both Flutter and AngularDart apps.",
+  "author": "Call Vin <kanggara75@gmail.com>",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "keywords": [
+    "coc.nvim"
+  ],
+  "engines": {
+    "coc": "^0.0.80"
+  },
+  "scripts": {
+    "lint": "eslint src --ext ts",
+    "clean": "rimraf lib",
+    "watch": "node esbuild.js --watch",
+    "build": "node esbuild.js",
+    "prepare": "node esbuild.js"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 120,
+    "semi": true
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.13.0",
+    "@typescript-eslint/parser": "^5.13.0",
+    "coc.nvim": "^0.0.80",
+    "esbuild": "^0.14.24",
+    "eslint": "^8.10.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.5.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.6.2"
+  },
+  "activationEvents": [
+    "*"
+  ],
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "coc-flutter-bloc configuration",
+      "properties": {
+        "coc-flutter-bloc.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable coc-flutter-bloc extension"
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "coc-flutter-bloc.Command",
+        "title": "coc-flutter-bloc command title"
+      }
+    ]
+  }
+}

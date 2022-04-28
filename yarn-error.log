@@ -1,0 +1,94 @@
+Arguments: 
+  /usr/local/Cellar/node@16/16.14.2/bin/node /usr/local/Cellar/yarn/1.22.18/libexec/bin/yarn.js install
+
+PATH: 
+  /Users/k/Work/kuroject_mac/coc-flutter-bloc/node_modules/.bin:/Users/k/Work/kuroject_mac/node_modules/.bin:/Users/k/Work/node_modules/.bin:/Users/k/node_modules/.bin:/Users/node_modules/.bin:/node_modules/.bin:/usr/local/Cellar/node@16/16.14.2/lib/node_modules/npm/node_modules/@npmcli/run-script/lib/node-gyp-bin:/Users/k/.npm/_npx/fffbe757c70319ff/node_modules/.bin:/usr/local/opt/node@16/bin:/usr/local/opt/php@8.0/sbin:/usr/local/opt/php@8.0/bin:/Users/k/.composer/vendor/bin:/usr/local/sbin:/bin:/Users/k/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Users/k/Library/Android/sdk/tools:/Users/k/Library/Android/sdk/platform-tools:/Users/k/.pub-cache/bin:/Users/k/dev/flutter/bin
+
+Yarn version: 
+  1.22.18
+
+Node version: 
+  16.14.2
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/regexpp/-/regexpp-3.2.0.tgz: ESOCKETTIMEDOUT
+      at ClientRequest.<anonymous> (/usr/local/Cellar/yarn/1.22.18/libexec/lib/cli.js:141510:19)
+      at Object.onceWrapper (node:events:645:28)
+      at ClientRequest.emit (node:events:526:28)
+      at TLSSocket.emitRequestTimeout (node:_http_client:758:9)
+      at Object.onceWrapper (node:events:645:28)
+      at TLSSocket.emit (node:events:538:35)
+      at TLSSocket.Socket._onTimeout (node:net:501:8)
+      at listOnTimeout (node:internal/timers:559:17)
+      at processTimers (node:internal/timers:502:7)
+
+npm manifest: 
+  {
+    "name": "coc-flutter-bloc",
+    "version": "0.0.0-development",
+    "description": "CoC (NeoVim & Vim) support for the Bloc Library and provides tools for effectively creating Blocs and Cubits for both Flutter and AngularDart apps.",
+    "author": "Call Vin <kanggara75@gmail.com>",
+    "license": "MIT",
+    "main": "lib/index.js",
+    "keywords": [
+      "coc.nvim"
+    ],
+    "engines": {
+      "coc": "^0.0.80"
+    },
+    "scripts": {
+      "lint": "eslint src --ext ts",
+      "clean": "rimraf lib",
+      "watch": "node esbuild.js --watch",
+      "build": "node esbuild.js",
+      "prepare": "node esbuild.js"
+    },
+    "prettier": {
+      "singleQuote": true,
+      "printWidth": 120,
+      "semi": true
+    },
+    "devDependencies": {
+      "@typescript-eslint/eslint-plugin": "^5.13.0",
+      "@typescript-eslint/parser": "^5.13.0",
+      "coc.nvim": "^0.0.80",
+      "esbuild": "^0.14.24",
+      "eslint": "^8.10.0",
+      "eslint-config-prettier": "^8.5.0",
+      "eslint-plugin-prettier": "^4.0.0",
+      "prettier": "^2.5.1",
+      "rimraf": "^3.0.2",
+      "typescript": "^4.6.2"
+    },
+    "activationEvents": [
+      "*"
+    ],
+    "contributes": {
+      "configuration": {
+        "type": "object",
+        "title": "coc-flutter-bloc configuration",
+        "properties": {
+          "coc-flutter-bloc.enabled": {
+            "type": "boolean",
+            "default": true,
+            "description": "Enable coc-flutter-bloc extension"
+          }
+        }
+      },
+      "commands": [
+        {
+          "command": "coc-flutter-bloc.Command",
+          "title": "coc-flutter-bloc command title"
+        }
+      ]
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
