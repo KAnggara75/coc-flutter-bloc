@@ -1,15 +1,23 @@
 {
   "compilerOptions": {
-    "target": "es2017",
-    "lib": ["es2017", "es2018"],
-    "module": "commonjs",
     "declaration": false,
-    "sourceMap": true,
-    "outDir": "lib",
-    "strict": true,
+    "esModuleInterop": true,
+    "lib": [
+      "es2017",
+      "es2018"
+    ],
+    "module": "commonjs",
     "moduleResolution": "node",
     "noImplicitAny": false,
-    "esModuleInterop": true
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "outDir": "lib",
+    "rootDir": "src",
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2017",
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }
