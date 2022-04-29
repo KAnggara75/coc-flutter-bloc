@@ -2,17 +2,17 @@
 
 CoC (NeoVim & Vim) support for the Bloc Library and provides tools for effectively creating Blocs and Cubits for both Flutter and AngularDart apps.
 
+**_Ported form [vscode-bloc](https://github.com/felangel/bloc/tree/master/extensions/vscode)_**
+
 ## Install
 
 `:CocInstall coc-flutter-bloc`
 
-## Keymaps
+## Command
 
-`nmap <silent> <C-l> <Plug>(coc-coc-flutter-bloc-keymap)`
+`:CocCommand bloc.new-bloc` to create new bloc file
 
-## Lists
-
-`:CocList demo_list`
+`:CocCommand bloc.new-cubit` to create new cubit file
 
 ## License
 
