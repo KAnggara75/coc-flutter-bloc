@@ -1,20 +1,15 @@
 import * as _ from "lodash";
 import * as changeCase from "change-case";
-import mkdirp from "mkdirp";
+import mkdirp = require("mkdirp");
 
 import {
-  InputBoxOptions,
-  OpenDialogOptions,
+  Thenable,
   Uri,
   window,
   workspace,
 } from "coc.nvim";
 import { existsSync, lstatSync, writeFile } from "fs";
-import {
-  getBlocEventTemplate,
-  getBlocStateTemplate,
-  getBlocTemplate,
-} from "../templates";
+import { getBlocEventTemplate, getBlocStateTemplate, getBlocTemplate } from "../templates";
 import { getBlocType, BlocType, TemplateType } from "../utils";
 
 export const newBloc = async (uri: Uri) => {
@@ -24,13 +19,9 @@ export const newBloc = async (uri: Uri) => {
     return;
   }
 
-  let targetDirectory;
+  let targetDirectory: string | undefined;
   if (_.isNil(_.get(uri, "fsPath")) || !lstatSync(uri.fsPath).isDirectory()) {
     targetDirectory = await promptForTargetDirectory();
-    if (_.isNil(targetDirectory)) {
-      window.showErrorMessage("Please select a valid directory");
-      return;
-    }
   } else {
     targetDirectory = uri.fsPath;
   }
@@ -51,26 +42,13 @@ export const newBloc = async (uri: Uri) => {
 };
 
 function promptForBlocName(): Thenable<string | undefined> {
-  const blocNamePromptOptions: InputBoxOptions = {
-    prompt: "Bloc Name",
-    placeHolder: "counter",
-  };
-  return window.showInputBox(blocNamePromptOptions);
+  return workspace.callAsync('input', ['Bloc name (example: conter): ']);
 }
 
 async function promptForTargetDirectory(): Promise<string | undefined> {
-  const options: OpenDialogOptions = {
-    canSelectMany: false,
-    openLabel: "Select a folder to create the bloc in",
-    canSelectFolders: true,
-  };
-
-  return window.showOpenDialog(options).then((uri) => {
-    if (_.isNil(uri) || _.isEmpty(uri)) {
-      return undefined;
-    }
-    return uri[0].fsPath;
-  });
+  return workspace.callAsync('input', [
+    'Where Folder path to create the blocs in (default: lib): ',
+  ]);
 }
 
 async function generateBlocCode(
@@ -78,12 +56,9 @@ async function generateBlocCode(
   targetDirectory: string,
   type: BlocType
 ) {
-  const shouldCreateDirectory = workspace
-    .getConfiguration("bloc")
-    .get<boolean>("newBlocTemplate.createDirectory");
-  const blocDirectoryPath = shouldCreateDirectory
-    ? `${targetDirectory}/bloc`
-    : targetDirectory;
+  const libDir = 'lib';
+  let targetDir = targetDirectory || libDir;
+  const blocDirectoryPath = `${targetDir}/bloc/${blocName}`;
   if (!existsSync(blocDirectoryPath)) {
     await createDirectory(blocDirectoryPath);
   }

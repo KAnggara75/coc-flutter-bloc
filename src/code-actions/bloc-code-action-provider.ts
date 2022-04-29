@@ -27,7 +27,7 @@ export class BlocCodeActionProvider implements CodeActionProvider {
       ...(isBlocListener
         ? [
           {
-            command: "extension.convert-multibloclistener",
+            command: "bloc.convert-multibloclistener",
             title: "Convert to MultiBlocListener",
           },
         ]
@@ -35,7 +35,7 @@ export class BlocCodeActionProvider implements CodeActionProvider {
       ...(isBlocProvider
         ? [
           {
-            command: "extension.convert-multiblocprovider",
+            command: "bloc.convert-multiblocprovider",
             title: "Convert to MultiBlocProvider",
           },
         ]
@@ -43,33 +43,33 @@ export class BlocCodeActionProvider implements CodeActionProvider {
       ...(isRepositoryProvider
         ? [
           {
-            command: "extension.convert-multirepositoryprovider",
+            command: "bloc.convert-multirepositoryprovider",
             title: "Convert to MultiRepositoryProvider",
           },
         ]
         : []),
       {
-        command: "extension.wrap-blocbuilder",
+        command: "bloc.wrap-blocbuilder",
         title: "Wrap with BlocBuilder",
       },
       {
-        command: "extension.wrap-blocselector",
+        command: "bloc.wrap-blocselector",
         title: "Wrap with BlocSelector",
       },
       {
-        command: "extension.wrap-bloclistener",
+        command: "bloc.wrap-bloclistener",
         title: "Wrap with BlocListener",
       },
       {
-        command: "extension.wrap-blocconsumer",
+        command: "bloc.wrap-blocconsumer",
         title: "Wrap with BlocConsumer",
       },
       {
-        command: "extension.wrap-blocprovider",
+        command: "bloc.wrap-blocprovider",
         title: "Wrap with BlocProvider",
       },
       {
-        command: "extension.wrap-repositoryprovider",
+        command: "bloc.wrap-repositoryprovider",
         title: "Wrap with RepositoryProvider",
       },
     ].map((c) => {

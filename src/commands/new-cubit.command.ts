@@ -1,10 +1,9 @@
 import * as _ from "lodash";
 import * as changeCase from "change-case";
-import mkdirp from "mkdirp";
+import mkdirp = require("mkdirp");
 
 import {
-  InputBoxOptions,
-  OpenDialogOptions,
+  Thenable,
   Uri,
   window,
   workspace,
@@ -20,13 +19,9 @@ export const newCubit = async (uri: Uri) => {
     return;
   }
 
-  let targetDirectory;
+  let targetDirectory: string;
   if (_.isNil(_.get(uri, "fsPath")) || !lstatSync(uri.fsPath).isDirectory()) {
     targetDirectory = await promptForTargetDirectory();
-    if (_.isNil(targetDirectory)) {
-      window.showErrorMessage("Please select a valid directory");
-      return;
-    }
   } else {
     targetDirectory = uri.fsPath;
   }
@@ -47,26 +42,13 @@ export const newCubit = async (uri: Uri) => {
 };
 
 function promptForCubitName(): Thenable<string | undefined> {
-  const cubitNamePromptOptions: InputBoxOptions = {
-    prompt: "Cubit Name",
-    placeHolder: "counter",
-  };
-  return window.showInputBox(cubitNamePromptOptions);
+  return workspace.callAsync('input', ['Cubit name (example: conter): ']);
 }
 
 async function promptForTargetDirectory(): Promise<string | undefined> {
-  const options: OpenDialogOptions = {
-    canSelectMany: false,
-    openLabel: "Select a folder to create the cubit in",
-    canSelectFolders: true,
-  };
-
-  return window.showOpenDialog(options).then((uri) => {
-    if (_.isNil(uri) || _.isEmpty(uri)) {
-      return undefined;
-    }
-    return uri[0].fsPath;
-  });
+  return workspace.callAsync('input', [
+    'Where Folder path to create the cubit in (default: lib): ',
+  ]);
 }
 
 async function generateCubitCode(
@@ -74,12 +56,9 @@ async function generateCubitCode(
   targetDirectory: string,
   type: BlocType
 ) {
-  const shouldCreateDirectory = workspace
-    .getConfiguration("bloc")
-    .get<boolean>("newCubitTemplate.createDirectory");
-  const cubitDirectoryPath = shouldCreateDirectory
-    ? `${targetDirectory}/cubit`
-    : targetDirectory;
+  const libDir = 'lib';
+  let targetDir = targetDirectory || libDir;
+  const cubitDirectoryPath = `${targetDir}/cubit/${cubitName}`;
   if (!existsSync(cubitDirectoryPath)) {
     await createDirectory(cubitDirectoryPath);
   }
