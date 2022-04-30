@@ -1,26 +1,21 @@
-import * as _ from "lodash";
-import * as changeCase from "change-case";
-import mkdirp = require("mkdirp");
+import * as _ from 'lodash';
+import * as changeCase from 'change-case';
+import mkdirp = require('mkdirp');
 
-import {
-  Thenable,
-  Uri,
-  window,
-  workspace,
-} from "coc.nvim";
-import { existsSync, lstatSync, writeFile } from "fs";
-import { getCubitStateTemplate, getCubitTemplate } from "../templates";
-import { getBlocType, BlocType, TemplateType } from "../utils";
+import { Thenable, Uri, window, workspace } from 'coc.nvim';
+import { existsSync, lstatSync, writeFile } from 'fs';
+import { getCubitStateTemplate, getCubitTemplate } from '../templates';
+import { getBlocType, BlocType, TemplateType } from '../utils';
 
 export const newCubit = async (uri: Uri) => {
   const cubitName = await promptForCubitName();
-  if (_.isNil(cubitName) || cubitName.trim() === "") {
-    window.showErrorMessage("The cubit name must not be empty");
+  if (_.isNil(cubitName) || cubitName.trim() === '') {
+    window.showErrorMessage('The cubit name must not be empty');
     return;
   }
 
   let targetDirectory: string;
-  if (_.isNil(_.get(uri, "fsPath")) || !lstatSync(uri.fsPath).isDirectory()) {
+  if (_.isNil(_.get(uri, 'fsPath')) || !lstatSync(uri.fsPath).isDirectory()) {
     targetDirectory = await promptForTargetDirectory();
   } else {
     targetDirectory = uri.fsPath;
@@ -45,7 +40,7 @@ function promptForCubitName(): Thenable<string | undefined> {
   return workspace.callAsync('input', ['Cubit name (example: conter): ']);
 }
 
-async function promptForTargetDirectory(): Promise<string | undefined> {
+async function promptForTargetDirectory(): Promise<string> {
   return workspace.callAsync('input', [
     'Where Folder path to create the cubit in (default: lib): ',
   ]);
@@ -57,7 +52,7 @@ async function generateCubitCode(
   type: BlocType
 ) {
   const libDir = 'lib';
-  let targetDir = targetDirectory || libDir;
+  const targetDir = targetDirectory || libDir;
   const cubitDirectoryPath = `${targetDir}/cubit/${cubitName}`;
   if (!existsSync(cubitDirectoryPath)) {
     await createDirectory(cubitDirectoryPath);
@@ -71,12 +66,12 @@ async function generateCubitCode(
 
 function createDirectory(targetDirectory: string): Promise<void> {
   return new Promise((resolve, reject) => {
-    mkdirp(targetDirectory, (error) => {
-      if (error) {
-        return reject(error);
-      }
+    try {
+      mkdirp.sync(targetDirectory);
       resolve();
-    });
+    } catch (e) {
+      reject(e);
+    }
   });
 }
 
@@ -94,7 +89,7 @@ function createCubitStateTemplate(
     writeFile(
       targetPath,
       getCubitStateTemplate(cubitName, type),
-      "utf8",
+      'utf8',
       (error) => {
         if (error) {
           reject(error);
@@ -120,7 +115,7 @@ function createCubitTemplate(
     writeFile(
       targetPath,
       getCubitTemplate(cubitName, type),
-      "utf8",
+      'utf8',
       (error) => {
         if (error) {
           reject(error);

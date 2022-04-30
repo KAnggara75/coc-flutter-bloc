@@ -1,26 +1,25 @@
-import * as _ from "lodash";
-import * as changeCase from "change-case";
-import mkdirp = require("mkdirp");
+import * as _ from 'lodash';
+import * as changeCase from 'change-case';
+import mkdirp = require('mkdirp');
 
+import { Thenable, Uri, window, workspace } from 'coc.nvim';
+import { existsSync, lstatSync, writeFile } from 'fs';
 import {
-  Thenable,
-  Uri,
-  window,
-  workspace,
-} from "coc.nvim";
-import { existsSync, lstatSync, writeFile } from "fs";
-import { getBlocEventTemplate, getBlocStateTemplate, getBlocTemplate } from "../templates";
-import { getBlocType, BlocType, TemplateType } from "../utils";
+  getBlocEventTemplate,
+  getBlocStateTemplate,
+  getBlocTemplate,
+} from '../templates';
+import { getBlocType, BlocType, TemplateType } from '../utils';
 
 export const newBloc = async (uri: Uri) => {
   const blocName = await promptForBlocName();
-  if (_.isNil(blocName) || blocName.trim() === "") {
-    window.showErrorMessage("The bloc name must not be empty");
+  if (_.isNil(blocName) || blocName.trim() === '') {
+    window.showErrorMessage('The bloc name must not be empty');
     return;
   }
 
   let targetDirectory: string | undefined;
-  if (_.isNil(_.get(uri, "fsPath")) || !lstatSync(uri.fsPath).isDirectory()) {
+  if (_.isNil(_.get(uri, 'fsPath')) || !lstatSync(uri.fsPath).isDirectory()) {
     targetDirectory = await promptForTargetDirectory();
   } else {
     targetDirectory = uri.fsPath;
@@ -45,7 +44,7 @@ function promptForBlocName(): Thenable<string | undefined> {
   return workspace.callAsync('input', ['Bloc name (example: conter): ']);
 }
 
-async function promptForTargetDirectory(): Promise<string | undefined> {
+async function promptForTargetDirectory(): Promise<string> {
   return workspace.callAsync('input', [
     'Where Folder path to create the blocs in (default: lib): ',
   ]);
@@ -57,7 +56,7 @@ async function generateBlocCode(
   type: BlocType
 ) {
   const libDir = 'lib';
-  let targetDir = targetDirectory || libDir;
+  const targetDir = targetDirectory || libDir;
   const blocDirectoryPath = `${targetDir}/bloc/${blocName}`;
   if (!existsSync(blocDirectoryPath)) {
     await createDirectory(blocDirectoryPath);
@@ -72,12 +71,12 @@ async function generateBlocCode(
 
 function createDirectory(targetDirectory: string): Promise<void> {
   return new Promise((resolve, reject) => {
-    mkdirp(targetDirectory, (error) => {
-      if (error) {
-        return reject(error);
-      }
+    try {
+      mkdirp.sync(targetDirectory);
       resolve();
-    });
+    } catch (e) {
+      reject(e);
+    }
   });
 }
 
@@ -95,7 +94,7 @@ function createBlocEventTemplate(
     writeFile(
       targetPath,
       getBlocEventTemplate(blocName, type),
-      "utf8",
+      'utf8',
       (error) => {
         if (error) {
           reject(error);
@@ -121,7 +120,7 @@ function createBlocStateTemplate(
     writeFile(
       targetPath,
       getBlocStateTemplate(blocName, type),
-      "utf8",
+      'utf8',
       (error) => {
         if (error) {
           reject(error);
@@ -144,7 +143,7 @@ function createBlocTemplate(
     throw Error(`${snakeCaseBlocName}_bloc.dart already exists`);
   }
   return new Promise<void>(async (resolve, reject) => {
-    writeFile(targetPath, getBlocTemplate(blocName, type), "utf8", (error) => {
+    writeFile(targetPath, getBlocTemplate(blocName, type), 'utf8', (error) => {
       if (error) {
         reject(error);
         return;
@@ -153,3 +152,4 @@ function createBlocTemplate(
     });
   });
 }
+
