@@ -1,7 +1,7 @@
 {
   "name": "coc-flutter-bloc",
-  "version": "0.1.0",
-  "description": "CoC (NeoVim & Vim) Support for the bloc library and provides tools for effectively creating blocs for both Flutter and AngularDart apps.",
+  "version": "0.1.1",
+  "description": "CoC (NeoVim & Vim) Extension for the bloc library and provides tools for effectively creating blocs for both Flutter and AngularDart apps.",
   "author": "Call Vin <kanggara75@gmail.com>",
   "license": "MIT",
   "main": "lib/index.js",
