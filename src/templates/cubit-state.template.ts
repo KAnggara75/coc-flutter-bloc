@@ -1,5 +1,5 @@
-import * as changeCase from "change-case";
-import { BlocType } from "../utils";
+import * as changeCase from 'change-case';
+import { BlocType } from '../utils';
 
 export function getCubitStateTemplate(
   cubitName: string,
@@ -48,3 +48,4 @@ class ${pascalCaseCubitName}State with _\$${pascalCaseCubitName}State {
 }
 `;
 }
+

@@ -1,5 +1,5 @@
-import * as changeCase from "change-case";
-import { BlocType } from "../utils";
+import * as changeCase from 'change-case';
+import { BlocType } from '../utils';
 
 export function getBlocTemplate(blocName: string, type: BlocType): string {
   switch (type) {
@@ -69,3 +69,4 @@ class ${pascalCaseBlocName}Bloc extends Bloc<${blocEvent}, ${blocState}> {
 }
 `;
 }
+

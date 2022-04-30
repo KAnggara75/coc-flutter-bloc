@@ -1,5 +1,5 @@
-import * as changeCase from "change-case";
-import { BlocType } from "../utils";
+import * as changeCase from 'change-case';
+import { BlocType } from '../utils';
 
 export function getBlocStateTemplate(blocName: string, type: BlocType): string {
   switch (type) {
@@ -38,7 +38,7 @@ class ${pascalCaseBlocName}Initial extends ${pascalCaseBlocName}State {}
 
 function getFreezedBlocStateTemplate(blocName: string): string {
   const pascalCaseBlocName =
-    changeCase.pascalCase(blocName.toLowerCase()) + "State";
+    changeCase.pascalCase(blocName.toLowerCase()) + 'State';
   const snakeCaseBlocName = changeCase.snakeCase(blocName.toLowerCase());
   return `part of '${snakeCaseBlocName}_bloc.dart';
 @freezed
@@ -47,3 +47,4 @@ class ${pascalCaseBlocName} with _\$${pascalCaseBlocName} {
 }
 `;
 }
+

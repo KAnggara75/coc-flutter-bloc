@@ -1,5 +1,5 @@
-import * as changeCase from "change-case";
-import { BlocType } from "../utils";
+import * as changeCase from 'change-case';
+import { BlocType } from '../utils';
 
 export function getCubitTemplate(cubitName: string, type: BlocType): string {
   switch (type) {
@@ -51,3 +51,4 @@ class ${pascalCaseCubitName}Cubit extends Cubit<${cubitState}> {
 }
 `;
 }
+

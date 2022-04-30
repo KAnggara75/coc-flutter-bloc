@@ -1,5 +1,5 @@
-import * as changeCase from "change-case";
-import { BlocType } from "../utils";
+import * as changeCase from 'change-case';
+import { BlocType } from '../utils';
 
 export function getBlocEventTemplate(blocName: string, type: BlocType): string {
   switch (type) {
@@ -35,7 +35,7 @@ abstract class ${pascalCaseBlocName}Event {}
 
 function getFreezedBlocEvent(blocName: string): string {
   const pascalCaseBlocName =
-    changeCase.pascalCase(blocName.toLowerCase()) + "Event";
+    changeCase.pascalCase(blocName.toLowerCase()) + 'Event';
   const snakeCaseBlocName = changeCase.snakeCase(blocName.toLowerCase());
   return `part of '${snakeCaseBlocName}_bloc.dart';
 @freezed
