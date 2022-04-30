@@ -1,4 +1,4 @@
-import { convertTo } from "../utils";
+import { convertTo } from '../utils';
 
 const multiBlocProviderSnippet = (widget: string, child: string) => {
   return `MultiBlocProvider(

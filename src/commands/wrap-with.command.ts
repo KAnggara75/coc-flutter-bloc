@@ -1,4 +1,4 @@
-import { wrapWith } from "../utils";
+import { wrapWith } from '../utils';
 
 const blocBuilderSnippet = (widget: string) => {
   return `BlocBuilder<\${1:Subject}\${2|Bloc,Cubit|}, $1State>(
@@ -60,3 +60,4 @@ export const wrapWithBlocConsumer = async () => wrapWith(blocConsumerSnippet);
 export const wrapWithBlocProvider = async () => wrapWith(blocProviderSnippet);
 export const wrapWithRepositoryProvider = async () =>
   wrapWith(repositoryProviderSnippet);
+
