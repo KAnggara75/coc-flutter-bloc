@@ -1,7 +1,6 @@
-import * as _ from "lodash";
-import * as fs from "fs";
-import { workspace } from "coc.nvim";
-import { getPubspecPath } from "./get-pubspec-path";
+import * as fs from 'fs';
+import { workspace } from 'coc.nvim';
+import { getPubspecPath } from './get-pubspec-path';
 
 export function updatePubspecDependency(dependency: {
   name: string;
@@ -15,13 +14,14 @@ export function updatePubspecDependency(dependency: {
         fs.writeFileSync(
           pubspecPath,
           fs
-            .readFileSync(pubspecPath, "utf8")
+            .readFileSync(pubspecPath, 'utf8')
             .replace(
               `${dependency.name}: ${dependency.currentVersion}`,
               `${dependency.name}: ${dependency.latestVersion}`
             )
         );
-      } catch (_) { }
+      } catch (_) {}
     }
   }
 }
+

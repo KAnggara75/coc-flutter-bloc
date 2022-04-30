@@ -1,4 +1,4 @@
-import { workspace } from "coc.nvim";
+import { workspace } from 'coc.nvim';
 
 export const enum TemplateSetting {
   Auto,
@@ -16,24 +16,25 @@ export function getTemplateSetting(type: TemplateType): TemplateSetting {
   let config: string | undefined;
   switch (type) {
     case TemplateType.Bloc:
-      config = workspace.getConfiguration("bloc").get("newBlocTemplate.type");
+      config = workspace.getConfiguration('bloc').get('newBlocTemplate.type');
       break;
     case TemplateType.Cubit:
-      config = workspace.getConfiguration("bloc").get("newCubitTemplate.type");
+      config = workspace.getConfiguration('bloc').get('newCubitTemplate.type');
       break;
     default:
       return TemplateSetting.Auto;
   }
 
   switch (config) {
-    case "freezed":
+    case 'freezed':
       return TemplateSetting.Freezed;
-    case "equatable":
+    case 'equatable':
       return TemplateSetting.Equatable;
-    case "simple":
+    case 'simple':
       return TemplateSetting.Simple;
-    case "auto":
+    case 'auto':
     default:
       return TemplateSetting.Auto;
   }
 }
+

@@ -1,12 +1,12 @@
-import { hasDependency } from "./has-dependency";
+import { hasDependency } from './has-dependency';
 import {
   TemplateType,
   getTemplateSetting,
   TemplateSetting,
-} from "./get-template-setting";
+} from './get-template-setting';
 
-const equatable = "equatable";
-const freezed_annotation = "freezed_annotation";
+const equatable = 'equatable';
+const freezed_annotation = 'freezed_annotation';
 
 export const enum BlocType {
   Simple,
